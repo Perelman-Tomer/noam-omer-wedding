@@ -91,6 +91,26 @@ a {
   }
 }
 
+/* Desktop only — render as mobile frame */
+@media (pointer: fine) and (hover: hover) {
+  body {
+    background: #1a0a00;
+  }
+
+  body::before {
+    background: #1a0a00;
+  }
+
+  .app {
+    position: relative;
+    max-width: 430px;
+    margin: 0 auto;
+    overflow: clip;
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.55);
+    min-height: 100dvh;
+  }
+}
+
 /* Loading States */
 .loading {
   opacity: 0.7;

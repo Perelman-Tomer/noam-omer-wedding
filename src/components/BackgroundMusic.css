@@ -24,3 +24,10 @@
   color: #333;
   opacity: 0.78;
 }
+
+/* Desktop only — align button with the left edge of the 430px mobile frame */
+@media (pointer: fine) and (hover: hover) {
+  .music-toggle-btn {
+    left: calc(50vw - 215px + 14px);
+  }
+}

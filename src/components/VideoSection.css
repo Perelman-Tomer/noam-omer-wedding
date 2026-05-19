@@ -295,3 +295,12 @@
     padding: 0.85rem 1.75rem;
   }
 }
+
+/* Desktop only — keep video inside the 430px mobile frame */
+@media (pointer: fine) and (hover: hover) {
+  .video-section {
+    width: 430px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
