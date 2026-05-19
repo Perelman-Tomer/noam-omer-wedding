@@ -1,0 +1,158 @@
+%!Adobe-FontList 1.25
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:/Volumes/Morly Works/ Noam & Omer Wedding נועם ועומר/נועם ועומר - הזמנה לחתונה/נועם ועומר  הזמנה לחתונה -N LAST Folder/Document fonts/AdobeFnt25.lst
+FileLength:3790
+FileModTime:800114948
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:AdobeHebrew-Regular
+FamilyName:Adobe Hebrew
+StyleName:Regular
+MenuName:Adobe Hebrew
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Adobe Hebrew Regular
+FamilyNameNative:
+StyleNameNative:Regular
+FullNameNative:
+WritingScript:Hebrew
+OutlineFileName:/Volumes/Morly Works/ Noam & Omer Wedding נועם ועומר/נועם ועומר - הזמנה לחתונה/נועם ועומר  הזמנה לחתונה -N LAST Folder/Document fonts/AdobeHebrew-Regular.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:73124
+FileModTime:792315861
+NameArray:0,Mac,18,Adobe Hebrew
+NameArray:0,Mac,4,Adobe Hebrew Regular
+NameArray:0,Win,1,Adobe Hebrew
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:FbAgas-Light
+FamilyName:FbAgas 
+StyleName:Light
+MenuName:FbAgas Light
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:FbAgas-Light
+FamilyNameNative:
+StyleNameNative:Light
+FullNameNative:
+WritingScript:Hebrew
+OutlineFileName:/Volumes/Morly Works/ Noam & Omer Wedding נועם ועומר/נועם ועומר - הזמנה לחתונה/נועם ועומר  הזמנה לחתונה -N LAST Folder/Document fonts/FbAgas-Light.otf
+DataFormat:sfntData
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:62060
+FileModTime:289216054
+NameArray:0,Mac,4,FbAgas Light
+NameArray:0,Win,1,FbAgas Light
+NameArray:0,Win,16,FbAgas 
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:FbAgas-Regular
+FamilyName:FbAgas 
+StyleName:Regular
+MenuName:FbAgas Regular
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:FbAgas-Regular
+FamilyNameNative:
+StyleNameNative:Regular
+FullNameNative:
+WritingScript:Hebrew
+OutlineFileName:/Volumes/Morly Works/ Noam & Omer Wedding נועם ועומר/נועם ועומר - הזמנה לחתונה/נועם ועומר  הזמנה לחתונה -N LAST Folder/Document fonts/FbAgas-Regular.otf
+DataFormat:sfntData
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:62260
+FileModTime:289216018
+NameArray:0,Mac,4,FbAgas Regular
+NameArray:0,Win,1,FbAgas Regular
+NameArray:0,Win,16,FbAgas 
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:FbMaarav-Bold
+FamilyName:FbMaarav
+StyleName:Bold
+MenuName:FbMaarav Bold
+StyleBits:2
+WeightClass:700
+WidthClass:5
+AngleClass:0
+FullName:FbMaarav-Bold
+FamilyNameNative:
+StyleNameNative:Bold
+FullNameNative:
+WritingScript:Hebrew
+OutlineFileName:/Volumes/Morly Works/ Noam & Omer Wedding נועם ועומר/נועם ועומר - הזמנה לחתונה/נועם ועומר  הזמנה לחתונה -N LAST Folder/Document fonts/FbMaarav-Bold.otf
+DataFormat:sfntData
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:65104
+FileModTime:296035250
+NameArray:0,Mac,4,FbMaarav Bold
+NameArray:0,Win,1,FbMaarav Bold
+NameArray:0,Win,16,FbMaarav
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:FbMaarav-Regular
+FamilyName:FbMaarav
+StyleName:Regular
+MenuName:FbMaarav Regular
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:FbMaarav-Regular
+FamilyNameNative:
+StyleNameNative:Regular
+FullNameNative:
+WritingScript:Hebrew
+OutlineFileName:/Volumes/Morly Works/ Noam & Omer Wedding נועם ועומר/נועם ועומר - הזמנה לחתונה/נועם ועומר  הזמנה לחתונה -N LAST Folder/Document fonts/FbMaarav-Regular.otf
+DataFormat:sfntData
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:64772
+FileModTime:296035238
+NameArray:0,Mac,4,FbMaarav Regular
+NameArray:0,Win,1,FbMaarav Regular
+NameArray:0,Win,16,FbMaarav
+%EndFont
+

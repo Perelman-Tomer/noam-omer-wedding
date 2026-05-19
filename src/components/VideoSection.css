@@ -1,0 +1,271 @@
+.video-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* fallback */
+  height: 100dvh;
+  min-height: -webkit-fill-available;
+  z-index: 1000;
+  background: #000;
+}
+
+.video-section.content-visible {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.video-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 1;
+}
+
+/* Position & size are set via inline style (JS computes cover-aware seal coords) */
+.video-play-trigger {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.video-play-trigger:focus {
+  outline: none;
+}
+
+.video-play-trigger:focus-visible {
+  outline: 2px solid rgba(255, 220, 170, 0.95);
+  outline-offset: 6px;
+  border-radius: 50%;
+}
+
+/* ── Ring ── */
+.video-play-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 214, 160, 0.9);
+  background: transparent;
+  pointer-events: none;
+  animation: ring-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes ring-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 6px  rgba(255, 190, 100, 0.35),
+      0 0 14px rgba(255, 165,  50, 0.18),
+      inset 0 0 8px rgba(255, 248, 230, 0.12);
+    border-color: rgba(255, 214, 160, 0.82);
+  }
+  50% {
+    box-shadow:
+      0 0 16px rgba(255, 200, 110, 0.75),
+      0 0 32px rgba(255, 165,  50, 0.35),
+      inset 0 0 14px rgba(255, 248, 230, 0.28);
+    border-color: rgba(255, 228, 168, 1);
+  }
+}
+
+/* ── Sparks container – slow rotation ── */
+.video-play-sparks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: sparks-spin 14s linear infinite;
+}
+
+@keyframes sparks-spin {
+  to { transform: rotate(360deg); }
+}
+
+/*
+ * Each spark is a zero-size anchor at the button centre.
+ * transform: rotate(Ndeg) places it at a clock position.
+ * ::before is the actual glowing needle that shoots outward.
+ * CSS custom property --d is used to stagger the shoot animation
+ * (custom props ARE inherited by pseudo-elements).
+ */
+.video-play-spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+  --d: 0s;
+}
+
+.video-play-spark::before {
+  content: '';
+  position: absolute;
+  left: -1.5px;
+  width: 3px;
+  /* base sits exactly on the ring edge, tip shoots outward */
+  bottom: calc(var(--play-ring-size) * 0.5);
+  height: 0;
+  border-radius: 2px 2px 1px 1px;
+  background: linear-gradient(
+    to top,
+    rgba(255, 140, 0, 0)   0%,
+    rgba(255, 200, 80, 0.6) 35%,
+    #ffe57a                 65%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+  transform-origin: bottom center;
+  animation: spark-shoot 1.55s ease-out infinite;
+  animation-delay: var(--d);
+}
+
+/* staggered start phases: 12 sparks × −1.55s/12 ≈ −0.129s apart */
+.video-play-spark:nth-child(1)  { transform: rotate(0deg);   --d: 0s;      }
+.video-play-spark:nth-child(2)  { transform: rotate(30deg);  --d: -0.26s;  }
+.video-play-spark:nth-child(3)  { transform: rotate(60deg);  --d: -0.52s;  }
+.video-play-spark:nth-child(4)  { transform: rotate(90deg);  --d: -0.78s;  }
+.video-play-spark:nth-child(5)  { transform: rotate(120deg); --d: -1.03s;  }
+.video-play-spark:nth-child(6)  { transform: rotate(150deg); --d: -0.13s;  }
+.video-play-spark:nth-child(7)  { transform: rotate(180deg); --d: -0.39s;  }
+.video-play-spark:nth-child(8)  { transform: rotate(210deg); --d: -0.65s;  }
+.video-play-spark:nth-child(9)  { transform: rotate(240deg); --d: -0.91s;  }
+.video-play-spark:nth-child(10) { transform: rotate(270deg); --d: -1.17s;  }
+.video-play-spark:nth-child(11) { transform: rotate(300deg); --d: -0.19s;  }
+.video-play-spark:nth-child(12) { transform: rotate(330deg); --d: -0.45s;  }
+
+@keyframes spark-shoot {
+  0% {
+    height: 0;
+    opacity: 0;
+    transform: scaleX(1);
+    filter: brightness(1);
+  }
+  12% {
+    height: calc(var(--play-ring-size) * 0.22);
+    opacity: 1;
+    transform: scaleX(1.4);
+    filter: brightness(1.5);
+  }
+  45% {
+    height: calc(var(--play-ring-size) * 0.28);
+    opacity: 0.75;
+    transform: scaleX(0.9);
+    filter: brightness(1.2);
+  }
+  100% {
+    height: calc(var(--play-ring-size) * 0.32);
+    opacity: 0;
+    transform: scaleX(0.6);
+    filter: brightness(0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-play-sparks { animation: none; }
+  .video-play-ring   { animation: none; }
+
+  .video-play-spark::before {
+    height: calc(var(--play-ring-size) * 0.18);
+    opacity: 0.7;
+    animation: spark-subtle 2.4s ease-in-out infinite;
+    animation-delay: var(--d);
+  }
+
+  @keyframes spark-subtle {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 0.85; }
+  }
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 2;
+  max-width: 950px;
+  width: 100%;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: #2b2318;
+}
+
+.hero-top-text {
+  font-family: 'FbAgas-Regular', sans-serif;
+  font-size: 1.2rem;
+  color: #6a5544;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-family: 'FbAgas-Regular', sans-serif;
+  font-size: 4.5rem;
+  margin: 0;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.hero-subtitle {
+  font-family: 'FbAgas-Regular', sans-serif;
+  font-size: 1.5rem;
+  margin: 1rem auto 2rem;
+  max-width: 42rem;
+  color: #705d49;
+}
+
+.hero-date {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.82);
+  font-family: 'FbAgas-Regular', sans-serif;
+  font-size: 1.4rem;
+  color: #4e3f33;
+  border: 1px solid rgba(134, 110, 93, 0.15);
+}
+
+.hero-decor {
+  position: relative;
+  z-index: 2;
+  width: clamp(320px, 55vw, 520px);
+  margin-top: 3rem;
+}
+
+.hero-decor img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .hero-overlay {
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .hero-date {
+    font-size: 1.15rem;
+    padding: 0.85rem 1.75rem;
+  }
+}

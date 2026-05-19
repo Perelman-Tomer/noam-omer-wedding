@@ -1,0 +1,369 @@
+/* ===== רקע עליון — fade חד-פעמי בטעינה ===== */
+@keyframes invitationBgFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================= */
+
+.invitation-section {
+  position: relative;
+  z-index: 2;
+  /* גובה לפי תוכן — בלי min-height מלא מסך שדוחף רווח ענק בין ההזמנה לחלק התחתון */
+  overflow: visible;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: #f7f2ec;
+}
+
+/* נקודת צפייה לראש ההזמנה — ראה InvitationSection.jsx */
+.invitation-top-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  width: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.invitation-bg-top {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/assets/images/compressed_webp/Top_Back.webp');
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  animation: invitationBgFadeIn 1s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+.invitation-hero {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: max(clamp(0.65rem, 2.5vh, 1.5rem), env(safe-area-inset-top, 0px));
+  padding-bottom: 0;
+  pointer-events: none;
+}
+
+.invitation-top-image {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* ריווח לעיטור העליון גם בשיא האנימציה */
+  padding-top: clamp(0.35rem, 1.25vh, 0.85rem);
+  padding-inline: 0;
+  padding-bottom: 0;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.wreath-container {
+  position: absolute;
+  top: clamp(0.2rem, 1vh, 0.65rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  margin-top: 0;
+}
+
+.wreath-image {
+  /* נוזלי לפי רוחב וגובה מסך — קטן יותר בטלפונים צרים, גדול יותר בטאבלט */
+  width: clamp(3.25rem, 7.5vw + 3.5vmin, 6.5rem);
+  max-width: min(6.5rem, 30vw);
+  height: auto;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.invitation-section.invitation--in-view .wreath-image {
+  opacity: 1;
+  animation: invitationWreathFloat 11s ease-in-out 0.75s infinite;
+}
+
+.invitation-section:not(.invitation--in-view) .wreath-image {
+  animation: none;
+}
+
+.invitation-image {
+  width: 100%;
+  height: auto;
+  margin-top: 0rem;
+  display: block;
+  object-fit: contain;
+  object-position: center top;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    transform 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.invitation-section.invitation--in-view .invitation-image {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.invitation-hero .flower-left {
+  position: absolute;
+  left: clamp(-0.5rem, -2vw, 0.25rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.invitation-hero .flower-right {
+  position: absolute;
+  right: clamp(-0.5rem, -2vw, 0.25rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.invitation-section:not(.invitation--in-view) .invitation-hero .flower-left,
+.invitation-section:not(.invitation--in-view) .invitation-hero .flower-right {
+  pointer-events: none;
+}
+
+.invitation-section.invitation--in-view .invitation-hero .flower-left {
+  opacity: 1;
+  animation: invitationFlowerSway 8.5s ease-in-out 0.72s infinite;
+}
+
+.invitation-section.invitation--in-view .invitation-hero .flower-right {
+  opacity: 1;
+  animation: invitationFlowerSwayReverse 8s ease-in-out 0.82s infinite;
+}
+
+.invitation-section:not(.invitation--in-view) .invitation-hero .flower-left,
+.invitation-section:not(.invitation--in-view) .invitation-hero .flower-right {
+  animation: none;
+}
+
+.flower-image {
+  width: clamp(3.35rem, 8.5vw + 5vmin, 10rem);
+  max-width: min(10rem, 34vw);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.invitation-section.invitation--in-view .invitation-hero .flower-left .flower-image {
+  animation: invitationPetalAlive 6.5s ease-in-out 0.85s infinite;
+}
+
+.invitation-section.invitation--in-view .invitation-hero .flower-right .flower-image {
+  animation: invitationPetalAlive 6s ease-in-out 0.95s infinite reverse;
+}
+
+.invitation-section:not(.invitation--in-view) .invitation-hero .flower-left .flower-image,
+.invitation-section:not(.invitation--in-view) .invitation-hero .flower-right .flower-image {
+  animation: none;
+}
+
+.invitation-section.invitation--in-view .invitation-hero .flower-left,
+.invitation-section.invitation--in-view .invitation-hero .flower-right {
+  pointer-events: auto;
+}
+
+@keyframes invitationWreathFloat {
+  0%, 100% {
+    transform: translateY(4px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-2px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(1px) rotate(-1.4deg);
+  }
+}
+
+@keyframes invitationFlowerSway {
+  0%, 100% {
+    transform: translateY(-50%) translateX(0) rotate(0deg);
+  }
+  22% {
+    transform: translateY(calc(-50% - 5px)) translateX(8px) rotate(3.5deg);
+  }
+  48% {
+    transform: translateY(calc(-50% + 3px)) translateX(12px) rotate(5deg);
+  }
+  72% {
+    transform: translateY(calc(-50% - 3px)) translateX(5px) rotate(-2.5deg);
+  }
+}
+
+@keyframes invitationFlowerSwayReverse {
+  0%, 100% {
+    transform: translateY(-50%) translateX(0) rotate(0deg);
+  }
+  22% {
+    transform: translateY(calc(-50% - 5px)) translateX(-8px) rotate(-3.5deg);
+  }
+  48% {
+    transform: translateY(calc(-50% + 3px)) translateX(-12px) rotate(-5deg);
+  }
+  72% {
+    transform: translateY(calc(-50% - 3px)) translateX(-5px) rotate(2.5deg);
+  }
+}
+
+/* ברק עדין על הפרח — רק filter, כדי שלא יתנגש עם hover על transform */
+@keyframes invitationPetalAlive {
+  0%, 100% {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  }
+  50% {
+    filter:
+      drop-shadow(0 7px 16px rgba(45, 36, 28, 0.13))
+      brightness(1.035)
+      saturate(1.05);
+  }
+}
+
+/* ===== חץ גלילה ===== */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(7px); }
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: clamp(0.75rem, 2.5vh, 1.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  opacity: 0.65;
+  transition: opacity 0.4s ease;
+  animation: scrollBounce 1.5s ease-in-out infinite;
+  pointer-events: auto;
+}
+
+.scroll-hint svg {
+  display: block;
+  width: clamp(1.5rem, 5vw, 2rem);
+  height: auto;
+  stroke: #6b4c3b;
+}
+
+.scroll-hint--hidden {
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+/* מסכים צרים: cover כדי לכסות את כל הסקשן, עם עדיפות לחלק העליון */
+@media (max-width: 520px) {
+  .invitation-bg-top {
+    background-size: cover;
+    background-position: center top;
+  }
+}
+
+/* טלפונים קטנים מאוד — פרחים קומפקטיים בלי לכסות את ההזמנה */
+@media (max-width: 360px) {
+  .wreath-image {
+    width: clamp(3rem, 22vw + 2vmin, 5rem);
+    max-width: min(5rem, 28vw);
+  }
+
+  .flower-image {
+    width: clamp(3rem, 7vw + 4.5vmin, 7rem);
+    max-width: min(7rem, 30vw);
+  }
+
+  .invitation-hero .flower-left {
+    left: clamp(-0.35rem, -1vw, 0.1rem);
+  }
+
+  .invitation-hero .flower-right {
+    right: clamp(-0.35rem, -1vw, 0.1rem);
+  }
+}
+
+/* מסכים רחבים (לא מובייל צר) — חזרה לפרופורציות דקורטיביות יותר גדולות */
+@media (min-width: 600px) {
+  .wreath-image {
+    width: clamp(4.25rem, 8vw + 2vmin, 6.75rem);
+    max-width: 6.75rem;
+  }
+
+  .flower-image {
+    width: clamp(5rem, 9vw + 3vmin, 10rem);
+    max-width: min(10rem, 11rem);
+  }
+
+  .invitation-hero .flower-left {
+    left: clamp(-1rem, -3vw, -0.25rem);
+  }
+
+  .invitation-hero .flower-right {
+    right: clamp(-1rem, -3vw, -0.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint {
+    animation: none;
+  }
+
+  .invitation-bg-top {
+    opacity: 1;
+    animation: none;
+  }
+
+  .wreath-image,
+  .invitation-hero .flower-left,
+  .invitation-hero .flower-right,
+  .invitation-hero .flower-left .flower-image,
+  .invitation-hero .flower-right .flower-image,
+  .invitation-image {
+    animation: none;
+    opacity: 1;
+  }
+
+  .invitation-hero .flower-left,
+  .invitation-hero .flower-right {
+    transform: translateY(-50%);
+  }
+
+  .invitation-hero .flower-left .flower-image,
+  .invitation-hero .flower-right .flower-image {
+    transform: none;
+  }
+
+  .invitation-image {
+    transform: none;
+  }
+
+  .wreath-image {
+    transform: none;
+  }
+}
