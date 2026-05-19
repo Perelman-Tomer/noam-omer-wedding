@@ -106,8 +106,32 @@ function CalendarIcon() {
   )
 }
 
+function GoogleCalendarIcon() {
+  return (
+    <svg className="lower-calendar-provider-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="#4285F4" d="M5 3h14c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2z"/>
+      <path fill="#fff" d="M8.5 9.5h-1v5h1v-5zm4 0h-1v5h1v-5zm4 0h-1v5h1v-5z"/>
+      <path fill="#EA4335" d="M5 7h14V5H5z"/>
+      <path fill="#FBBC04" d="M5 9h14V7H5z"/>
+      <path fill="#34A853" d="M5 19h14v-2H5z"/>
+    </svg>
+  )
+}
+
+function AppleCalendarIcon() {
+  return (
+    <svg className="lower-calendar-provider-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="18" rx="2" fill="#fff" stroke="#d1d5db" strokeWidth="1"/>
+      <rect x="3" y="4" width="18" height="6" rx="2" fill="#ff3b30"/>
+      <text x="12" y="16" fontSize="10" fontWeight="bold" textAnchor="middle" fill="#000">16</text>
+    </svg>
+  )
+}
+
 function LowerScrollContent() {
   const sectionRef = useRef(null)
+  const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false)
+  const calendarMenuRef = useRef(null)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -131,22 +155,62 @@ function LowerScrollContent() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isCalendarMenuOpen) {
+        setIsCalendarMenuOpen(false)
+      }
+    }
+
+    const handleClickOutside = (e) => {
+      if (
+        calendarMenuRef.current &&
+        !calendarMenuRef.current.contains(e.target) &&
+        isCalendarMenuOpen
+      ) {
+        setIsCalendarMenuOpen(false)
+      }
+    }
+
+    if (isCalendarMenuOpen) {
+      document.addEventListener('keydown', handleEscape)
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => {
+        document.removeEventListener('keydown', handleEscape)
+        document.removeEventListener('mousedown', handleClickOutside)
+      }
+    }
+  }, [isCalendarMenuOpen])
+
   const handleWazeNavigation = () => {
     const wazeUrl =
       'https://waze.com/ul?q=גאיה%20חדרה%20-%20גן%20אירועים%20-%20HaUman%20St%2012%20Hadera&navigate=yes'
     window.open(wazeUrl, '_blank')
   }
 
-  const handleAddToCalendar = () => {
+  const handleGoogleCalendar = () => {
+    const googleUrl = new URL('https://calendar.google.com/calendar/render')
+    googleUrl.searchParams.set('action', 'TEMPLATE')
+    googleUrl.searchParams.set('text', 'החתונה של נועם פרלמן ועומר רטמן')
+    googleUrl.searchParams.set('dates', '20260616T160000Z/20260617T000000Z')
+    googleUrl.searchParams.set(
+      'details',
+      'טקס החופה בשעה 19:00\nחגיגת הנשף בשעה 20:00\nגאיה חדרה - גן אירועים'
+    )
+    googleUrl.searchParams.set('location', 'גאיה חדרה - גן אירועים, רחוב האומן 12, חדרה')
+    window.open(googleUrl.toString(), '_blank')
+  }
+
+  const handleAppleCalendar = () => {
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Noam & Omer Wedding//Wedding Invitation//HE
 BEGIN:VEVENT
 UID:noam-omer-wedding-2026@wedding.com
 DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-DTSTART:20260616T190000Z
-DTEND:20260617T030000Z
-SUMMARY:חתונת נועם ועומר
+DTSTART:20260616T160000Z
+DTEND:20260617T000000Z
+SUMMARY:החתונה של נועם פרלמן ועומר רטמן
 DESCRIPTION:טקס החופה בשעה 19:00\\nחגיגת הנשף בשעה 20:00\\nגאיה חדרה - גן אירועים
 LOCATION:גאיה חדרה - גן אירועים, רחוב האומן 12, חדרה
 STATUS:CONFIRMED
@@ -202,12 +266,63 @@ END:VCALENDAR`
             type="button"
             id="lower-calendar-add-btn"
             className="lower-btn lower-btn--calendar"
-            onClick={handleAddToCalendar}
-            aria-describedby="lower-calendar-date-hint"
+            onClick={() => setIsCalendarMenuOpen(true)}
+            aria-label="בחר יישום יומן"
+            aria-haspopup="dialog"
+            aria-expanded={isCalendarMenuOpen}
           >
             <span>הוסף אירוע ליומן</span>
             <CalendarIcon />
           </button>
+
+          {isCalendarMenuOpen && (
+            <div
+              className="calendar-menu-overlay"
+              onClick={() => setIsCalendarMenuOpen(false)}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="calendar-menu-title"
+            >
+              <div
+                ref={calendarMenuRef}
+                className="calendar-menu"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h3 id="calendar-menu-title" className="calendar-menu__title">
+                  בחר יישום יומן
+                </h3>
+                <button
+                  type="button"
+                  className="calendar-menu__option"
+                  onClick={() => {
+                    handleGoogleCalendar()
+                    setIsCalendarMenuOpen(false)
+                  }}
+                >
+                  <GoogleCalendarIcon />
+                  <span>Google Calendar</span>
+                </button>
+                <button
+                  type="button"
+                  className="calendar-menu__option"
+                  onClick={() => {
+                    handleAppleCalendar()
+                    setIsCalendarMenuOpen(false)
+                  }}
+                >
+                  <AppleCalendarIcon />
+                  <span>Apple Calendar</span>
+                </button>
+                <button
+                  type="button"
+                  className="calendar-menu__close"
+                  onClick={() => setIsCalendarMenuOpen(false)}
+                >
+                  ביטול
+                </button>
+              </div>
+            </div>
+          )}
       
           <img
           
