@@ -30,8 +30,33 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  opacity: 1;
+  opacity: 0;
+  pointer-events: none;
   background: #e8e4df;
+}
+
+.hero-video.is-playing {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+.hero-video::-webkit-media-controls {
+  display: none !important;
+}
+
+.hero-poster {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 
 /* Position & size are set via inline style (JS computes cover-aware seal coords) */

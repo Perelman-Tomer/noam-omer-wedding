@@ -57,7 +57,7 @@ function useSealPosition(videoRef) {
 
 function VideoSection() {
   const videoRef = useRef(null)
-  const [hasStarted, setHasStarted] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
   const [showContent, setShowContent] = useState(false)
 
   const sealPos = useSealPosition(videoRef)
@@ -101,7 +101,6 @@ function VideoSection() {
     if (!el) return false
     try {
       await el.play()
-      setHasStarted(true)
       return true
     } catch {
       return false
@@ -116,9 +115,7 @@ function VideoSection() {
     const el = videoRef.current
     if (!el) return
 
-    const onCanPlay = () => {
-      startPlayback()
-    }
+    const onCanPlay = () => { startPlayback() }
 
     el.addEventListener('canplay', onCanPlay, { once: true })
     if (el.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
@@ -143,19 +140,22 @@ function VideoSection() {
       <div className="video-container">
         <video
           ref={videoRef}
-          poster={INTRO_POSTER_URL}
           muted
           playsInline
-          autoPlay
           preload="auto"
+          onPlaying={() => setIsPlaying(true)}
           onEnded={handleVideoEnd}
-          className="hero-video"
+          className={`hero-video${isPlaying ? ' is-playing' : ''}`}
         >
           <source src={assetUrl('assets/video/envelope-animation.mp4')} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
-        {!hasStarted && sealPos && (
+        {!isPlaying && (
+          <img src={INTRO_POSTER_URL} className="hero-poster" alt="" />
+        )}
+
+        {!isPlaying && sealPos && (
           <button
             type="button"
             className="video-play-trigger"
