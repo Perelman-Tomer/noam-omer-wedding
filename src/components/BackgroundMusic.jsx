@@ -8,6 +8,7 @@ function BackgroundMusic() {
   const audioRef = useRef(null)
   const fadeRef = useRef(null)
   const hasStartedRef = useRef(false)
+  const wasPlayingBeforeHideRef = useRef(false)
   const [isMuted, setIsMuted] = useState(false)
 
   const fadeIn = useCallback((duration = 2500) => {
@@ -58,6 +59,48 @@ function BackgroundMusic() {
       if (fadeRef.current) cancelAnimationFrame(fadeRef.current)
     }
   }, [startMusic])
+
+  const pauseOnLeave = useCallback(() => {
+    const audio = audioRef.current
+    if (!audio) return
+    if (fadeRef.current) cancelAnimationFrame(fadeRef.current)
+
+    const wasPlaying =
+      hasStartedRef.current && !audio.paused && !isMuted
+
+    wasPlayingBeforeHideRef.current = wasPlaying
+    if (wasPlaying) audio.pause()
+  }, [isMuted])
+
+  const resumeOnReturn = useCallback(() => {
+    const audio = audioRef.current
+    if (!audio || !wasPlayingBeforeHideRef.current || isMuted) return
+
+    wasPlayingBeforeHideRef.current = false
+    audio.play().catch(() => {
+      wasPlayingBeforeHideRef.current = true
+    })
+  }, [isMuted])
+
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        pauseOnLeave()
+      } else {
+        resumeOnReturn()
+      }
+    }
+
+    const onPageHide = () => pauseOnLeave()
+
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    window.addEventListener('pagehide', onPageHide)
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+      window.removeEventListener('pagehide', onPageHide)
+    }
+  }, [pauseOnLeave, resumeOnReturn])
 
   const toggleMute = useCallback(() => {
     const audio = audioRef.current
