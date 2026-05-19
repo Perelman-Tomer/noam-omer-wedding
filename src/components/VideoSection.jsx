@@ -3,6 +3,7 @@ import { assetUrl } from '../utils/assetUrl'
 import './VideoSection.css'
 
 const SPARK_COUNT = 12
+const INTRO_POSTER_URL = assetUrl('assets/images/firstFrame.webp')
 
 /**
  * Seal position inside the *native* video frame, expressed as fractions (0–1).
@@ -95,16 +96,37 @@ function VideoSection() {
     }, 0)
   }
 
-  const handlePlayClick = useCallback(async () => {
+  const startPlayback = useCallback(async () => {
     const el = videoRef.current
-    if (!el) return
+    if (!el) return false
     try {
       await el.play()
       setHasStarted(true)
+      return true
     } catch {
-      // play() rejected — keep overlay visible
+      return false
     }
   }, [])
+
+  const handlePlayClick = useCallback(() => {
+    startPlayback()
+  }, [startPlayback])
+
+  useEffect(() => {
+    const el = videoRef.current
+    if (!el) return
+
+    const onCanPlay = () => {
+      startPlayback()
+    }
+
+    el.addEventListener('canplay', onCanPlay, { once: true })
+    if (el.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      startPlayback()
+    }
+
+    return () => el.removeEventListener('canplay', onCanPlay)
+  }, [startPlayback])
 
   const triggerStyle = sealPos
     ? {
@@ -121,8 +143,10 @@ function VideoSection() {
       <div className="video-container">
         <video
           ref={videoRef}
+          poster={INTRO_POSTER_URL}
           muted
           playsInline
+          autoPlay
           preload="auto"
           onEnded={handleVideoEnd}
           className="hero-video"

@@ -7,7 +7,7 @@
   height: 100dvh;
   min-height: -webkit-fill-available;
   z-index: 1000;
-  background: #000;
+  background: #e8e4df;
 }
 
 .video-section.content-visible {
@@ -31,6 +31,7 @@
   object-fit: cover;
   object-position: center center;
   opacity: 1;
+  background: #e8e4df;
 }
 
 /* Position & size are set via inline style (JS computes cover-aware seal coords) */
