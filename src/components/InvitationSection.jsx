@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { assetUrl } from '../utils/assetUrl'
 import './InvitationSection.css'
 
 function InvitationSection() {
@@ -48,13 +49,13 @@ function InvitationSection() {
           <div className="wreath-container">
             <img
             
-              src="/assets/images/compressed_webp/1-Flower-top.webp"
+              src={assetUrl('assets/images/compressed_webp/1-Flower-top.webp')}
               alt="Decorative wreath"
               className="wreath-image"
             />
           </div>
           <img
-            src="/assets/images/invitation-text-icons.webp"
+            src={assetUrl('assets/images/invitation-text-icons.webp')}
             alt="Noam and Omer wedding invitation"
             className="invitation-image"
             fetchPriority="high"

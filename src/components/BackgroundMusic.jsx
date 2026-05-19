@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { assetUrl } from '../utils/assetUrl'
 import './BackgroundMusic.css'
 
 const MAX_VOLUME = 0.35
@@ -82,7 +83,7 @@ function BackgroundMusic() {
         ref={audioRef}
         loop
         preload="auto"
-        src={encodeURI('/assets/הזמנה לחתונה - אורי בנאי.mp3')}
+        src={encodeURI(assetUrl('assets/הזמנה לחתונה - אורי בנאי.mp3'))}
       />
 
       <button

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { assetUrl } from '../utils/assetUrl'
 import './VideoSection.css'
 
 const SPARK_COUNT = 12
@@ -126,7 +127,7 @@ function VideoSection() {
           onEnded={handleVideoEnd}
           className="hero-video"
         >
-          <source src="/assets/video/envelope-animation.mp4" type="video/mp4" />
+          <source src={assetUrl('assets/video/envelope-animation.mp4')} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 

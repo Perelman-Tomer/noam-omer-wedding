@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
+import { assetUrl } from '../utils/assetUrl'
 import './LowerScrollContent.css'
 
 const WEDDING_PHOTOS_DRIVE_URL =
   'https://drive.google.com/drive/folders/1TtJUyqU9nbpM_wqmdfgYuQDxxTxMgA1m?usp=sharing'
 const WEDDING_DATE_LABEL = '16.6.2026'
 
-const lowerSectionBgUrl = `${import.meta.env.BASE_URL}assets/images/compressed_webp/Light_Back_flowes.webp`
-const theDayIconUrl = `${import.meta.env.BASE_URL}assets/images/The-Day.webp`
+const lowerSectionBgUrl = assetUrl('assets/images/compressed_webp/Light_Back_flowes.webp')
+const theDayIconUrl = assetUrl('assets/images/The-Day.webp')
 
 /** מצב הספירה כאן — כדי שלא ירונדר כל הסקשן כל שנייה */
 function LowerCountdown() {
@@ -176,7 +177,7 @@ END:VCALENDAR`
         <div className="lower-block lower-block--sprig-left">
           <div className="lower-wreath-wrap">
             <img
-              src="/assets/images/compressed_webp/4 Flower.webp"
+              src={assetUrl('assets/images/compressed_webp/4 Flower.webp')}
               alt=""
               className="lower-wreath"
               decoding="async"
@@ -188,7 +189,7 @@ END:VCALENDAR`
           <p className="lower-cursive">נתראה בקרוב...</p>
           <img
           
-            src="/assets/images/compressed_webp/5 Flower left.webp"
+            src={assetUrl('assets/images/compressed_webp/5 Flower left.webp')}
             alt=""
             className="lower-sprig lower-sprig--side"
             loading="lazy"
@@ -210,7 +211,7 @@ END:VCALENDAR`
       
           <img
           
-            src="/assets/images/compressed_webp/6 Flower Right.webp"
+            src={assetUrl('assets/images/compressed_webp/6 Flower Right.webp')}
             alt=""
             className="lower-sprig lower-sprig--side"
             loading="lazy"
@@ -224,7 +225,7 @@ END:VCALENDAR`
             <WazeIcon />
           </button>
           <img
-            src="/assets/images/compressed_webp/7 Flower left.webp"
+            src={assetUrl('assets/images/compressed_webp/7 Flower left.webp')}
             alt=""
             className="lower-sprig lower-sprig--side lower-sprig--waze"
             loading="lazy"
@@ -232,7 +233,7 @@ END:VCALENDAR`
           />
           <div className="lower-car-wrap">
             <img
-              src="/assets/images/wedding-car.webp"
+              src={assetUrl('assets/images/wedding-car.webp')}
               alt="רכב חתונה דקורטיבי"
               className="lower-car"
               loading="lazy"
@@ -252,7 +253,7 @@ END:VCALENDAR`
             <CameraIcon />
           </a>
           <img
-            src="/assets/images/compressed_webp/9 Flower Right.webp"
+            src={assetUrl('assets/images/compressed_webp/9 Flower Right.webp')}
             alt=""
             className="lower-sprig lower-sprig--side lower-sprig--photo-share"
             loading="lazy"
@@ -262,7 +263,7 @@ END:VCALENDAR`
 
         <div className="lower-footer lower-block--sprig-right">
           <img
-            src="/assets/images/noam-omer-logo.webp"
+            src={assetUrl('assets/images/noam-omer-logo.webp')}
             alt="נועם ועומר"
             className="lower-footer-logo"
             loading="lazy"
@@ -272,7 +273,7 @@ END:VCALENDAR`
 
           <div className="wreath-container lower-bottom-wreath">
             <img
-              src="/assets/images/compressed_webp/1-Flower-top.webp"
+              src={assetUrl('assets/images/compressed_webp/1-Flower-top.webp')}
               alt="Decorative wreath"
               className="wreath-image lower-bottom-wreath__image"
               loading="lazy"
